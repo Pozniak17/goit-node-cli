@@ -1,16 +1,17 @@
 const contacts = require("./contacts");
-// import { program } from "commander";
+const { program } = require("commander");
 
-// program
-//   .option("-a, --action <type>", "choose action")
-//   .option("-i, --id <type>", "user id")
-//   .option("-n, --name <type>", "user name")
-//   .option("-e, --email <type>", "user email")
-//   .option("-p, --phone <type>", "user phone");
+program
+  .option("-a, --action <type>", "choose action")
+  .option("-i, --id <type>", "user id")
+  .option("-n, --name <type>", "user name")
+  .option("-e, --email <type>", "user email")
+  .option("-p, --phone <type>", "user phone");
 
-// program.parse();
+program.parse();
 
-// const options = program.opts();
+const options = program.opts();
+invokeAction(options);
 
 // TODO: рефакторити
 async function invokeAction({ action, id, name, email, phone }) {
@@ -22,7 +23,7 @@ async function invokeAction({ action, id, name, email, phone }) {
 
     case "get":
       const oneContacts = await contacts.getContactById(id);
-      console.log(oneContacts);
+      console.log(oneContacts || null);
       break;
 
     case "add":
@@ -39,14 +40,3 @@ async function invokeAction({ action, id, name, email, phone }) {
       console.warn("\x1B[31m Unknown action type!");
   }
 }
-
-// invokeAction({ action: "list" });
-// invokeAction({ action: "get", id: "AeHIrLTr6JkxGE6SN-0Rw" });
-// invokeAction({
-//   action: "add",
-//   name: "Glocktar",
-//   email: "Soco@gmail.com",
-//   phone: "(000) 451-7038",
-// });
-
-invokeAction({ action: "remove", id: "6345fffe-d2b1-4221-bbfe-96635fef8d18" });
